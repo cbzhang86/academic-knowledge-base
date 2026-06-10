@@ -239,8 +239,33 @@ D:\公共管理科研\
    - **硬校验**：各方向 PDF 数 == 精读报告数 == dedup 索引数
 > ✅ **自检**：三数对齐 + 四项验证通过后结束本轮工作流
 
-### 阶段 5：论文写作（ARS 全流程）
-> **支持命令**：`/ars-full` — 在 Claude Code 中直接触发 ARS 全流程管线
+### 阶段 6：推送前拦截关卡（PUSH 前自动执行）
+
+**此阶段通过 git pre-push hook 自动强制执行**，无需手动触发。
+
+```bash
+# git push 时自动运行（无需手动执行）
+# 被拦截时修复后重新 push 即可
+python 14_工具脚本/check_push.py
+```
+
+**自动检查 6 项**：
+1. `README.md` 版本号 -> v10.5
+2. `README.md` 方向表格 -> PDF/精读数字对齐
+3. `CLAUDE.md` 方向表格 -> PDF/精读数字对齐
+4. `进度看板.md` -> 各方向 PDF 数字对齐
+5. 全量统计 -> 总PDF == 总精读
+6. （framework 推前）-> 框架分支的 README/CLAUDE 版本同步
+
+> 任意一项不通过 -> git push 被拦截 -> 修复后重推
+> 如需紧急推送（不推荐），使用 `git push --no-verify` 跳过
+
+**安装 hook**：
+```bash
+python "14_工具脚本/check_push.py" install
+```
+
+### 阶段 7：论文写作（ARS 全流程）
 
 ARS（academic-research-skills）全流程管线共 7 个阶段，适用于从初稿到定稿的完整学术论文生成：
 
