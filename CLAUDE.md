@@ -267,7 +267,22 @@ python "14_工具脚本/check_push.py" install
 
 ### 阶段 7：论文写作（ARS 全流程）
 
-ARS（academic-research-skills）全流程管线共 7 个阶段，适用于从初稿到定稿的完整学术论文生成：
+ARS（academic-research-skills）全流程管线共 7 个阶段，适用于从初稿到定稿的完整学术论文生成。**每个阶段前可运行 `ars_kb_bridge.py` 生成知识包**，将知识库沉淀注入当前阶段的上下文，实现"不会因写论文而脱离已有积累"。
+
+```bash
+# 阶段2.5前：引文对照
+python "14_工具脚本/报告/ars_kb_bridge.py" stage-25 --topic "论文主题" --refs "引文1,引文2"
+
+# 阶段3前：注入理论框架+研究空白给审稿人
+python "14_工具脚本/报告/ars_kb_bridge.py" stage-3 --topic "论文主题"
+
+# 阶段4前：审稿意见提到"理论薄弱"时
+python "14_工具脚本/报告/ars_kb_bridge.py" stage-4 --comments "审稿意见原文或文件"
+
+# 阶段5后：引文审计
+python "14_工具脚本/报告/ars_kb_bridge.py" stage-5 --refs "参考文献列表"
+# 输出：已引用/漏引的知识库精读对照表
+```
 
 | 阶段 | 名称 | 产出 | 备注 |
 |:----:|:------|:-----|:------|
