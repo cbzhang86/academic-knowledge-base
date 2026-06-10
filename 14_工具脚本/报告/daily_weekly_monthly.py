@@ -387,7 +387,7 @@ def generate_monthly(target_date=None):
         theory_n = len(re.findall(r'^## ', xc, re.MULTILINE))
         lines.append(f'- 理论交叉索引: {theory_n}个跨篇理论概念')
     # 方法笔记
-    method_n = len(list((KNOWLEDGE / '04_研究方法').glob('*.md')))
+    method_n = len(list(DIRS['04_methods'].glob('*.md')))
     lines.append(f'- 方法笔记: {method_n}篇')
     lines.append('')
 

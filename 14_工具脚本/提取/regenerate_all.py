@@ -29,8 +29,8 @@ for d in sorted(os.listdir(base)):
             title = tm.group(1) if tm else f.replace('_精读报告.md','')
             found = re.findall(r'\*\*([^*]{2,20}?)\*\*', theory_text)
             for t in found:
-                if len(t) >= 4 and ':' not in t:
-                    theory_index[t].append((d, f.replace('.md',''), title, theory_text[:120]))
+                if len(t) >= 4 and ':' not in t and '\n' not in t and t.strip() not in ('：',) and len(t.strip()) >= 4:
+                    theory_index[t.strip()].append((d, f.replace('.md',''), title, theory_text[:120]))
             break
 
 lines = ['# 理论交叉索引', '', '> 从精读报告的理论框架段自动提取 | 更新: 2026-06-09', '', '全库共 ' + str(len(theory_index)) + ' 个理论概念', '']
