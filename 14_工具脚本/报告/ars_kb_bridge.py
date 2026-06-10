@@ -398,56 +398,7 @@ def main():
                     help="参考文献列表（逗号分隔或文件路径）")
     p5.add_argument("--output", "-o", help="输出文件路径（可选）")
 
-    # ── 新增：一键准备全部知识包（论文审稿专用） ──
-    pp = sub.add_parser("prepare-paper", help="【推荐】一键生成论文审稿所需全部知识包")
-    pp.add_argument("--topic", "-t", required=True, help="论文主题关键词")
-    pp.add_argument("--refs", "-r", nargs="*", default=[],
-                    help="参考文献关键词列表（可选，用于引文审计）")
-    pp.add_argument("--paper", "-p", help="论文初稿路径（可选，stage-4会解析审稿信号词）")
-
     args = parser.parse_args()
-
-    if args.stage == "prepare-paper":
-        # 一键生成所有知识包
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        print(f"\n{'='*50}")
-        print(f"  📚 论文审稿知识包生成")
-        print(f"  主题: {args.topic}")
-        print(f"{'='*50}\n")
-
-        # Stage-3: 审稿背景包
-        p3_out = gen_stage_3(args.topic)
-        p3_path = OUTPUT_DIR / f"kb_pack_stage-3_{timestamp}.md"
-        p3_path.write_text(p3_out, encoding="utf-8")
-        print(f"  ✅ 审稿背景包 → {p3_path.name}")
-
-        # Stage-25: 引文对照包（如果有 refs）
-        if args.refs:
-            p25_out = gen_stage_25(args.topic, list(args.refs))
-            p25_path = OUTPUT_DIR / f"kb_pack_stage-25_{timestamp}.md"
-            p25_path.write_text(p25_out, encoding="utf-8")
-            print(f"  ✅ 引文对照包 → {p25_path.name}")
-
-        # Stage-5: 引文审计包（如果有 refs）
-        if args.refs:
-            refs_comma = ",".join(args.refs)
-            p5_out = gen_stage_5(refs_comma)
-            p5_path = OUTPUT_DIR / f"kb_pack_stage-5_{timestamp}.md"
-            p5_path.write_text(p5_out, encoding="utf-8")
-            print(f"  ✅ 引文审计包 → {p5_path.name}")
-
-        # Stage-4: 修订包（如果有论文初稿）
-        if args.paper:
-            p4_out = gen_stage_4(args.paper)
-            p4_path = OUTPUT_DIR / f"kb_pack_stage-4_{timestamp}.md"
-            p4_path.write_text(p4_out, encoding="utf-8")
-            print(f"  ✅ 修订推荐包 → {p4_path.name}")
-
-        print(f"\n{'='*50}")
-        print(f"  全部知识包已就绪，路径: {OUTPUT_DIR}")
-        print(f"  现在可以在对话中发送审稿请求（见 CLAUDE.md 推荐话术）")
-        print(f"{'='*50}\n")
-        return
 
     if args.stage == "stage-25":
         output = gen_stage_25(args.topic or "", args.refs or [])
