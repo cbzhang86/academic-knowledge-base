@@ -383,20 +383,21 @@ def main():
     p25 = sub.add_parser("stage-25", help="阶段2.5完整性审核 - 知识包")
     p25.add_argument("--topic", "-t", default="", help="论文主题关键词")
     p25.add_argument("--refs", "-r", nargs="*", default=[], help="参考文献关键词列表")
+    p25.add_argument("--paper", "-p", help="论文名（可选，输出到按论文名分组的目录）")
 
     p3 = sub.add_parser("stage-3", help="阶段3同行评审 - 知识包")
     p3.add_argument("--topic", "-t", required=True, help="论文主题关键词")
-    p3.add_argument("--output", "-o", help="输出文件路径（可选，默认打印）")
+    p3.add_argument("--paper", "-p", help="论文名（可选，输出到按论文名分组的目录）")
 
     p4 = sub.add_parser("stage-4", help="阶段4修订 - 知识包")
     p4.add_argument("--comments", "-c", required=True,
                     help="审稿意见原文或文件路径（包含'理论不足'等信号词）")
-    p4.add_argument("--output", "-o", help="输出文件路径（可选）")
+    p4.add_argument("--paper", "-p", help="论文名（可选，输出到按论文名分组的目录）")
 
     p5 = sub.add_parser("stage-5", help="阶段5定稿 - 引文审计")
     p5.add_argument("--refs", "-r", required=True,
                     help="参考文献列表（逗号分隔或文件路径）")
-    p5.add_argument("--output", "-o", help="输出文件路径（可选）")
+    p5.add_argument("--paper", "-p", help="论文名（可选，输出到按论文名分组的目录）")
 
     args = parser.parse_args()
 
@@ -413,7 +414,22 @@ def main():
         return
 
     # 输出
-    if hasattr(args, 'output') and args.output:
+    paper_name = getattr(args, 'paper', None)
+    if paper_name:
+        # 按论文名分组输出：10_研究输出/{论文名}/{阶段目录}/
+        stage_map = {
+            "stage-25": "02_完整性审核",
+            "stage-3": "03_审稿报告",
+            "stage-4": "04_修订稿",
+            "stage-5": "05_最终完整性审核",
+        }
+        sub_dir = stage_map.get(args.stage, "知识包")
+        paper_dir = PROJECT_ROOT / "10_研究输出" / paper_name / sub_dir
+        paper_dir.mkdir(parents=True, exist_ok=True)
+        out_path = paper_dir / f"{args.stage}_知识包.md"
+        out_path.write_text(output, encoding="utf-8")
+        print(f"[OK] 知识包已写入: {out_path}")
+    elif hasattr(args, 'output') and args.output:
         out_path = Path(args.output)
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_text(output, encoding="utf-8")
@@ -421,7 +437,8 @@ def main():
     else:
         # 默认写入到 ars_output/
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        out_path = OUTPUT_DIR / f"kb_pack_{args.stage}_{timestamp}.md"
+        out_path = OUTPUT_DIR / "ars_output" / f"kb_pack_{args.stage}_{timestamp}.md"
+        out_path.parent.mkdir(exist_ok=True)
         out_path.write_text(output, encoding="utf-8")
         print(f"[OK] 知识包已写入: {out_path}")
         print()
