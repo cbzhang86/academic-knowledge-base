@@ -424,7 +424,7 @@ def main():
             "stage-5": "05_最终完整性审核",
         }
         sub_dir = stage_map.get(args.stage, "知识包")
-        paper_dir = PROJECT_ROOT / "10_研究输出" / paper_name / sub_dir
+        paper_dir = PROJECT_ROOT / "10_研究输出" / "_papers" / paper_name / sub_dir
         paper_dir.mkdir(parents=True, exist_ok=True)
         out_path = paper_dir / f"{args.stage}_知识包.md"
         out_path.write_text(output, encoding="utf-8")
