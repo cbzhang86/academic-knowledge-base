@@ -11,10 +11,14 @@
             "id": "cf8fbe9ecbd56d34",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "关系图谱"
+              "type": "markdown",
+              "state": {
+                "file": "14_工具脚本/进度看板.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "进度看板"
             }
           }
         ]
@@ -74,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 428.5
   },
   "right": {
     "id": "495c7a2f1fdeb380",
@@ -181,6 +185,12 @@
   },
   "active": "cf8fbe9ecbd56d34",
   "lastOpenFiles": [
+    "14_工具脚本/检索日志.md",
+    "10_研究输出/定稿/论文创作过程记录.md",
+    "10_研究输出/定稿/论文创作过程记录.pdf",
+    "10_研究输出/定稿/技术在场服务缺席_养老服务数字排斥与包容性治理_终稿.md",
+    "10_研究输出/定稿/技术在场服务缺席_养老服务数字排斥与包容性治理_修订稿.md",
+    "10_研究输出/定稿/技术在场服务缺席_养老服务数字排斥与包容性治理.md",
     "README.md",
     "CLAUDE.md",
     "05_报告/日报/日报_2026-06-10.md",
