@@ -437,7 +437,7 @@ def main():
     else:
         # 默认写入到 ars_output/
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        out_path = OUTPUT_DIR / "ars_output" / f"kb_pack_{args.stage}_{timestamp}.md"
+        out_path = OUTPUT_DIR / f"kb_pack_{args.stage}_{timestamp}.md"
         out_path.parent.mkdir(exist_ok=True)
         out_path.write_text(output, encoding="utf-8")
         print(f"[OK] 知识包已写入: {out_path}")
