@@ -1,0 +1,28 @@
+# 领域配置
+# 新增领域只需加一段，脚本通过引用 areas.yaml 的 key 读取
+
+areas:
+  公共管理学:
+    keywords: ["数字政府", "基层治理", "公共服务", "政策执行", "公共价值"]
+    sources: ["ncpssd", "openalex"]
+    template: "default"
+
+  社会学:
+    keywords: ["社会分层", "社会流动", "教育公平", "社会资本", "分配公平"]
+    sources: ["ncpssd", "openalex"]
+    template: "default"
+
+  老龄化:
+    keywords: ["养老服务", "养老保险", "健康老龄化", "智慧养老", "人口老龄化"]
+    sources: ["ncpssd", "openalex"]
+    template: "default"
+
+  青少年研究:
+    keywords: ["青少年 网络行为", "青少年 心理健康", "青少年 社交媒体", "教育公平", "网络成瘾"]
+    sources: ["ncpssd", "openalex"]
+    template: "default"
+
+  交叉研究:
+    keywords: ["数字治理", "共同富裕", "乡村振兴"]
+    sources: ["ncpssd", "openalex"]
+    template: "default"

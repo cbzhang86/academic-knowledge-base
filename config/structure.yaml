@@ -1,0 +1,26 @@
+# 目录结构配置
+# 所有脚本通过逻辑键（directories.*）引用目录，不直接写中文字符串
+# 用户可自定义目录名，改此文件即可，不需改代码
+
+project:
+  name: "公共管理科研知识库"
+  description: "面向公共管理/社会学的学术文献知识库"
+
+directories:
+  01_raw: "01_论文原文"
+  02_reports: "02_精读报告"
+  03_materials: "03_学术写作素材库"
+  04_methods: "04_研究方法"
+  05_reports: "05_报告"
+  10_output: "10_研究输出"
+  skills: "skills"
+  obsidian_vault: "ObsidianVault"
+  archive: "99_归档"
+  temp: "00_临时工作区"
+
+area_names:
+  公共管理学: "公共管理学"
+  社会学: "社会学"
+  老龄化: "老龄化"
+  青少年研究: "青少年研究"
+  交叉研究: "交叉研究"

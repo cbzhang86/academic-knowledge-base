@@ -1,0 +1,193 @@
+{
+  "main": {
+    "id": "b642cde9bd501122",
+    "type": "split",
+    "children": [
+      {
+        "id": "ec580daacaf043b7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "cf8fbe9ecbd56d34",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "关系图谱"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "dd33e2c1056d0aa0",
+    "type": "split",
+    "children": [
+      {
+        "id": "9638b656b80b4400",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e66f46e3e57131e6",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "425eadc4dc878dc7",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "f8eb3b6b0b85d397",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "495c7a2f1fdeb380",
+    "type": "split",
+    "children": [
+      {
+        "id": "e3b6787a1f75e216",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6cdea6d6fbb621f0",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "04_研究方法/定量实证_中介调节效应.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "定量实证_中介调节效应 的反向链接列表"
+            }
+          },
+          {
+            "id": "b90a677931761567",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "04_研究方法/定量实证_中介调节效应.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "定量实证_中介调节效应 的出链列表"
+            }
+          },
+          {
+            "id": "de350b1c6ebb2ce7",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "07d17677999763cf",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "95dee1fd9b3793ff",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "04_研究方法/定量实证_中介调节效应.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "定量实证_中介调节效应 的大纲"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false
+    }
+  },
+  "active": "cf8fbe9ecbd56d34",
+  "lastOpenFiles": [
+    "README.md",
+    "CLAUDE.md",
+    "05_报告/日报/日报_2026-06-10.md",
+    "05_报告/日报/日报_2026-06-09.md",
+    "04_研究方法/定量实证_中介调节效应.md",
+    "04_研究方法/00_方法论总索引.md",
+    "01_论文精读/公共管理学/城市治理大模型的运行机理风险挑战与实践路径_精读报告.md",
+    "01_论文精读/公共管理学/00_精读索引.md"
+  ]
+}

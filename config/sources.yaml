@@ -1,0 +1,56 @@
+# 知识库配置清单
+# D:\公共管理科研\config\sources.yaml
+
+sources:
+  ncpssd:
+    name: "国家哲学社会科学文献中心"
+    url: "https://www.ncpssd.cn"
+    login_url: "https://www.ncpssd.cn/login"
+    search_url: "https://www.ncpssd.cn/Literature/articlelist"
+    requires_slider_bypass: true
+    slider_bypass_method: "sliderCode = true"
+    login_method: "$.post('/login', {loginType:'account', uname, password:$.md5(pw), UrlReferrer:'/'})"
+    last_status: "✅ 可用（Edge CDP 端口 9222）"
+
+  openalex:
+    name: "OpenAlex"
+    url: "https://api.openalex.org/works"
+    rate_limit: "无限制（建议加 mailto 标识）"
+    notes: "REST JSON API，搜索结果质量高"
+
+  arxiv:
+    name: "arXiv"
+    url: "http://export.arxiv.org/api/query"
+    rate_limit: "无明确限制"
+    notes: "XML feedparser 解析，预印本为主"
+
+  semantic_scholar:
+    name: "Semantic Scholar"
+    url: "https://api.semanticscholar.org/graph/v1/paper/search"
+    rate_limit: "无API key约1 req/3s"
+    needs_api_key: false
+
+research_areas:
+  公共管理学:
+    target: 30
+    current_pdf: 28
+    keywords: ["数字政府 公共价值", "基层治理 数字形式主义", "党建引领 基层治理"]
+    notes: "精读26篇 + 索引"
+
+  社会学:
+    target: 30
+    current_pdf: 49
+    keywords: ["社会分层 新就业群体", "社区治理 数字赋能"]
+    notes: "精读25篇 + 索引"
+
+  老龄化研究:
+    target: 20
+    current_pdf: 22
+    keywords: ["养老服务 数智化", "老年人 数字鸿沟"]
+    notes: "精读21篇 + 研究空白文档"
+
+  青少年研究:
+    target: 20
+    current_pdf: 1
+    keywords: ["青少年 网络行为", "青少年 心理健康"]
+    notes: "🔴 严重薄弱，Zotero入库1篇"

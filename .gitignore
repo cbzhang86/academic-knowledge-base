@@ -1,0 +1,43 @@
+# 知识内容（用户自建，不进框架分支）
+01_论文原文/           # PDF原文仓库
+02_精读报告/           # v10精读分析
+03_学术写作素材库/     # 跨篇沉淀（摘要/理论/论点/研究空白）
+04_研究方法/           # 方法论笔记
+05_报告/               # 日报/周报/月报
+10_研究输出/           # 论文写作全流程（原料包/ARS输出/定稿）
+ObsidianVault/         # 知识库镜像
+99_归档/
+00_临时工作区/
+logs/                  # 脚本运行日志
+output/                # 脚本输出
+
+# 凭据与敏感数据
+config/ncpssd_state.json   # Edge CDP session cookie，含有效凭据
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+.venv
+*.egg-info/
+
+# IDE
+.idea/
+.vscode/
+*.code-workspace
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 备份
+*_备份/
+*备份/
+*.zip
+*.tar.gz
+
+# 临时
+*.tmp
+*.log
+*.swp

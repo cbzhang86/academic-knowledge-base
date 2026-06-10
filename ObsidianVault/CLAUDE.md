@@ -1,0 +1,410 @@
+# 公共管理科研知识库 — CLAUDE.md
+
+> 本文件是 Claude Code 的项目定义，供 AI 助手理解此知识库的结构、工作流和操作规范。
+> **⚠️ 每次工程变更后必须同步更新本文档。**
+
+---
+
+## 一、项目概述
+
+面向公共管理学、社会学领域的**学术文献管理 + 系统综述工作流知识库**。核心目标：
+- 系统追踪 5 个研究方向（公共管理学、社会学、老龄化研究、青少年研究、交叉研究）的 CSSCI 论文
+- 从**检索→精读→跨篇沉淀**，形成可复用的知识资产
+- **支持论文选题、开题报告、系统综述写作**
+
+**当前规模**：113 篇精读报告（全部 v10 完整格式）+ 116 篇PDF原文 + 24 篇跨篇沉淀素材 + 9 篇方法笔记（2026-06-10）
+**论文产出**：《技术在场、服务缺席》（13,135字）— 已通过 ARS 全流程管线（审稿→修订→定稿）
+
+---
+
+## 二、目录结构 — 编号代表加工步数
+
+### 流水线知识（按加工先后编号）
+
+```
+01_论文原文/                     ← 第1步：原材料
+02_精读报告/                     ← 第2步：核心产出（108篇v10精读）
+03_学术写作素材库/               ← 第3步：跨篇沉淀
+  ├── 摘要/                     从精读「核心发现」段提取
+  ├── 理论框架/                 从精读「理论框架」段提取（含交叉索引）
+  ├── 关键论点/                 从精读「关键论点」引用行聚合
+  └── 研究空白/                 从精读「不足与展望」段聚合 → 选题原料
+```
+
+### 非流水线知识（旁支，不参与加工链）
+
+```
+04_研究方法/                     ← 旁支：怎么做研究的方法笔记
+14_工具脚本/                     ← 所有工具集中管理
+99_归档/                         ← 旧版文件
+00_临时工作区/                   ← 用完即清
+```
+
+### 全目录结构
+
+```
+D:\公共管理科研\
+│
+├── 01_论文原文\             # 原材料：PDF（116篇）
+│   ├── 公共管理学\          # 32 篇
+│   ├── 社会学\              # 47 篇
+│   ├── 老龄化\              # 25 篇
+│   ├── 青少年研究\          # 2 篇 ⚠️薄弱
+│   └── 交叉研究\            # 10 篇
+│
+├── 02_精读报告\             # ⭐核心产出：113篇v10精读分析
+│   ├── 公共管理学\          # 33 篇 + 00_精读索引.md
+│   ├── 社会学\              # 50 篇 + 00_精读索引.md
+│   ├── 老龄化\              # 25 篇 + 00_精读索引.md
+│   ├── 青少年研究\          # 2 篇 + 00_精读索引.md
+│   └── 交叉研究\            # 4 篇 + 00_精读索引.md
+│
+├── 03_学术写作素材库\       # ⭐跨篇沉淀：精读提取的知识（24篇可跨篇检索）
+│   ├── 摘要\                # 5方向「核心发现」段聚合（113篇素材）
+│   ├── 理论框架\            # 00_理论交叉索引.md + 5方向原文提取（含455个理论概念）
+│   ├── 关键论点\            # 跨篇引用汇编（78篇带来源）
+│   └── 研究空白\            # 5方向「不足与展望」段聚合（113篇素材）→ 选题原料
+│
+├── 04_研究方法\             # 方法笔记（旁支，不参与加工链）
+│   ├── 00_方法论总索引.md
+│   ├── 定量实证_中介调节效应.md
+│   ├── 实验法与准实验设计.md
+│   ├── 定性比较分析_QCA方法.md
+│   ├── 扎根理论案例研究方法.md
+│   ├── 政策文本分析_内容分析法.md
+│   ├── 规范研究_理论分析方法.md
+│   ├── 元分析方法.md
+│   └── 老龄化_方法论笔记.md
+│
+├── 05_报告\                 # ⭐日/周/月报输出（按类型分子目录）
+│   ├── 日报\                # 日报文件（daily.yml 按评分排序）
+│   ├── 周报\                # 周报文件
+│   └── 月报\                # 月报文件
+│
+├── 10_研究输出\             # ⭐论文写作全流程（知识库 → ARS 的桥梁）
+│   ├── 原料包\              # research_starter.py 产出的研究启动报告
+│   ├── ars_output\          # ARS 生成的草稿/大纲/修订稿
+│   └── 定稿\                # 最终成稿
+│
+├── 05_报告\                 # ⭐日/周/月报输出（自动化生成）
+│   ├── 日报_2026-06-09.md
+│   ├── 周报_W2026-23.md
+│   └── 月报_2026-06.md
+│
+├── 14_工具脚本\             # ⭐所有工具集中管理
+│   ├── 进度看板.md           # 进度管理（人工查阅）
+│   ├── 检索日志.md           # 检索记录（人工记录）
+│   ├── 操作规程.md           # 规则手册（遇到异常时查）
+│   ├── pipeline.py           # 统一主控入口
+│   ├── 采集\                 # 多源采集（arXiv/OpenAlex/ncpssd）+ 文件名清洗
+│   │   ├── base.py           # 抽象基类 + 工具函数（make_standard_filename/archive_pdf）
+│   │   ├── arxiv_source.py   # arXiv 源（自动提取作者+年份，文件名标准化）
+│   │   ├── openalex_source.py # OpenAlex 源（自动提取作者+年份，文件名标准化）
+│   │   ├── ncpssd_cdp.py     # ncpssd 源（Edge CDP）
+│   │   ├── multi_source.py   # 多源调度主控（含标题关键词过滤）
+│   │   ├── cleanup_filenames.py  # 脏文件名清洗（双后缀/arXiv ID/方向错乱）
+│   │   ├── standardize_filenames.py  # 全量文件名标准化为 年份_作者_标题
+│   │   └── manual_watch.py   # 手动存入PDF监控器
+│   ├── 入库\                 # Zotero导入（batch_import_zotero.py — 含四项验证+回滚机制）
+│   ├── 报告\                 # 日报/周报/月报 + 写作教练（输出到 05_报告/）
+│   │   └── daily_weekly_monthly.py
+│   ├── 提取\                 # 知识提取（regenerate_all.py — 一键生成全部跨篇沉淀）
+│   ├── backup.ps1            # 备份
+│   └── check_integrity.ps1   # 完整性检查
+│
+├── ObsidianVault\           # ⭐知识库镜像（项目目录全同步，所有链接已验证可跳转）
+│   ├── 01_论文精读\         # 精读报告各方向 + 00_精读索引.md
+│   ├── 03_写作素材\         # 摘要/理论框架/关键论点/研究空白
+│   ├── 04_研究方法\         # 方法笔记（含方法-论文关联表）
+│   └── 14_工具脚本\         # 进度看板/检索日志/操作规程
+│
+├── config\                  # 配置
+│   ├── .mcp.json
+│   ├── requirements.txt
+│   └── sources.yaml
+│
+├── logs\                    # 脚本运行日志
+├── 99_归档\                 # 旧版文件
+├── 00_临时工作区\           # 用完即清
+│
+├── analysis_template.md     # 精读报告模板（v10）
+├── CLAUDE.md                # 本文件
+└── README.md                # 项目说明
+```
+
+---
+
+## 三、知识加工流水线
+
+```
+01_论文原文/ (PDF 原材料)
+     │ 第1步：精读分析
+     ▼
+02_精读报告/ (v10 完整分析 108 篇)    ← ⭐核心产出
+     │ 第2步：脚本自动提取
+     ▼
+03_学术写作素材库/                     ← ⭐跨篇沉淀
+  ├── 摘要/         (核心发现段)
+  ├── 理论框架/     (理论框架段 + 交叉索引)
+  ├── 关键论点/     (引用行聚合)
+  └── 研究空白/     (不足与展望段 → 选题原料)
+```
+
+---
+
+## 四、精读报告标准（v10 完整格式）
+
+每篇精读报告必须包含以下 7 个部分，长度 175-205 行：
+
+1. **YAML frontmatter**（9 字段）：`title/tags/created/theme/study_area/data_source/methodology/core_variable/key_finding/relevance`
+2. **论文信息表**：标题/作者/期刊/DOI/基金/优先级/入库路径/MD5/CSSCI 等
+3. **研究概述**：一句话定位（≤30字）+ 研究对象/核心问题/研究情境 + 理论框架 + 研究方法表
+4. **质量评分（7 维）**：研究问题/理论框架/设计/证据/深度/写作/创新 — **每维必须有评价性理由**
+5. **内容拆解**：核心发现 + 关键论点（原文引用+页码）+ 核心概念定义 + 核心公式/指标 + 创新贡献 + 不足与展望
+6. **我的思考**（4 子项必须全部存在）：最有启发的点 / 可借鉴之处 / 待验证/存疑点 / 与我的研究关联
+7. **标签表 + 元信息**
+
+> ⚠️ **铁律**：不准简写 / 不准跳过审核（每篇提交 Explore 子智能体审核）/ 直接引文必须逐字匹配原文
+
+---
+
+## 五、核心工作流
+
+工作流由 **5 个阶段 + 必选自检** 组成。**每一阶段完成后必须执行自检**，不满足条件不进入下一阶段。
+
+### Agent 角色映射（谁在什么阶段做什么）
+
+| 阶段 | 负责 Agent | 调用的 Skill | 产出 |
+|:----:|:-----------|:-------------|:-----|
+| **0-1** | **采集Agent** | `collect/search` → `metadata/dedup` → `collect/download` → `metadata/archive` | PDF 文件 + dedup 登记 |
+| **2** | **精读Agent** | `review/draft`（按模板写作）→ `review/check`（自查） | v10 精读报告 |
+| **3** | **综合Agent** | `extract/regenerate` → `report/daily` | 写作素材 + 日报 |
+| **维护** | **运维Agent** | `tools/sync` → `metadata/dedup` → 更新看板/日志 | Obsidian 同步 + 状态对齐 |
+| **写作** | **审稿Agent** | `/ars-full` → `report/format_cn` | 论文定稿 |
+
+### 阶段 0：检索与采集
+1. 从关键词池（固化在 `14_工具脚本/采集/ncpssd_cdp.py` 的 `KEYWORD_POOL` 中）选关键词
+2. 启动 Edge CDP → `python "14_工具脚本/采集/ncpssd_cdp.py" download "关键词"`
+3. 或批量：`python "14_工具脚本/采集/ncpssd_cdp.py" download-pool "方向名"`
+4. 记录到 `14_工具脚本/检索日志.md`
+> ✅ **自检**：PDF 魔数校验（`%PDF` 开头）+ 文件名标准化（`年份_作者_标题.pdf`）+ 不相关论文已过滤
+
+### 阶段 1：下载与入库
+> **操作前必须读**：`memory/ncpssd-download-pipeline.md` + `memory/critical-db-rules.md`
+
+1. MCP前置验证（done.sqlite 四项一致）
+2. 双壳去重（Zotero DB + 01_论文原文）
+3. 搜索 → 左键单击下载（**Input.dispatchMouseEvent**，禁用 .click()）
+4. 移动 PDF 到 `01_论文原文/{方向}/`
+5. 关 Zotero → `python 14_工具脚本/入库/batch_import_zotero.py --append` → 四项验证 → 更新 done.sqlite → 开 Zotero
+6. 更新 `14_工具脚本/进度看板.md`
+> ✅ **自检**：`python 14_工具脚本/metadata/dedup.py rebuild && python 14_工具脚本/metadata/dedup.py status` → 三数一致（PDF 数 == dedup 索引数 == Zotero 论文数）
+
+### 阶段 2：精读分析
+1. 按 `analysis_template.md` 逐篇写（175-205 行，含 7 维评分+我的思考）
+2. 提交 Explore 子智能体审核 → 修正 → 下一篇
+> ✅ **自检**：精读报告文件名必须为 `*_精读报告.md`；`created` 字段日期为今天；入库路径指向真实 PDF
+
+### 阶段 3：跨篇沉淀
+1. 一键重跑：`python "14_工具脚本/提取/regenerate_all.py"` → 检查摘要/理论/空白篇数与精读报告数匹配
+2. 生成日报：`python "14_工具脚本/报告/daily_weekly_monthly.py" daily` → 确认今日篇数正确
+3. 生成周报：`python "14_工具脚本/报告/daily_weekly_monthly.py" weekly`
+4. 同步 Obsidian：`python "14_工具脚本/tools/sync.py"`
+> ✅ **自检**：`cat 05_报告/日报/日报_YYYY-MM-DD.md` → 今日精读数 = 今天写的报告数，评分已显示，我的思考已提取
+
+### 阶段 4：维护与对齐
+1. 更新 `14_工具脚本/进度看板.md` → 数据与实际对齐
+2. 更新 `14_工具脚本/检索日志.md` → 记录本次采集详情
+3. 验证全链一致性：`python -c "检查PDF数==dedup数==Zotero数"`
+> ✅ **自检**：三数对齐 + 四项验证通过后结束本轮工作流
+
+### 阶段 5：论文写作（ARS 全流程）
+> **支持命令**：`/ars-full` — 在 Claude Code 中直接触发 ARS 全流程管线
+
+ARS（academic-research-skills）全流程管线共 7 个阶段，适用于从初稿到定稿的完整学术论文生成：
+
+| 阶段 | 名称 | 产出 | 备注 |
+|:----:|:------|:-----|:------|
+| **2.5** | 完整性审核 | 完整性审核报告 | 参考文献 100% 验证（WebSearch + 本地知识库）|
+| **3** | 同行评审 | 5 份审稿报告 + 决策函 | EIC + 3 审稿人 + 魔鬼代言人 |
+| **4** | 修订 | 修订稿 + R&R 答复信 | 逐条回应审稿意见 |
+| **3'** | 再审 | 验证性评审报告 | 3 位审稿人聚焦检查修订质量 |
+| **4.5** | 最终完整性 | 最终完整性报告（必须 PASS）| 从零开始重新 100% 验证 |
+| **5** | 定稿 | 终稿 .md | 保持 8000-12000 字 |
+| **6** | 过程记录 | 过程记录 .md + .pdf | 人类-AI协作报告 |
+
+**⚠️ 历史经验（2026-06-10 首次全流程运行）：**
+1. **版本锁定**：Claude Code 必须使用 **v2.1.165**（v2.1.166+ 会导致 Agent API 400 错误）。确认：`claude -V` 输出 v2.1.165
+2. **不要修改 ARS 命令文件的模型设置**：`commands/*.md` 和 `deep-research/agents/*.md` 中的 `model` 字段保持原样（sonnet/opus/inherit），改 haiku 会导致输出缩水至 1/5
+3. **字数强制要求**：在 `/ars-full` 参数中必须添加"注意：论文正文必须保持完整的学术论文字数（约8000-12000字），不允许出现字数大幅缩减"
+4. **最后一步格式转换**：用 `report/format_cn` 生成符合中文学术规范的 .docx（见 Skill 表）
+5. **问题追踪**：Stage 2.5 发现的参考文献问题必须建立跨阶段追踪清单，否则可能在 Stage 4 未被修复而流入 Stage 4.5
+
+---
+
+## 六、知识库状态（2026-06-10）
+
+### 精读报告
+
+| 方向 | PDF | 精读 | v10 | 索引 |
+|------|:---:|:----:|:---:|:----:|
+| 公共管理学 | 32 | 33 | ✅ | ✅ |
+| 社会学 | 47 | 50 | ✅ | ✅ |
+| 老龄化 | 25 | 24 | ✅ | ✅ |
+| 青少年研究 | 2 | 2 | ✅ | ✅ |
+| 交叉研究 | 10 | 4 | ✅ | ✅ |
+| **总计** | **116** | **113** | ✅ | ✅ |
+
+**论文产出**：《技术在场、服务缺席》（13,135字）— 已通过 ARS 全流程管线（审稿→修订→定稿），最终定稿含 5 种 .docx 格式模板
+
+### 跨篇沉淀
+
+| 沉淀 | 覆盖 | 更新方式 |
+|------|:----:|---------|
+| `03/摘要/` | 113篇 | 脚本重跑 |
+| `03/理论框架/` | 113篇 | 脚本重跑（含455个理论概念）|
+| `03/关键论点/` | 78篇 | 脚本重跑 |
+| `03/研究空白/` | 113篇 | 脚本重跑 |
+
+### Obsidian Vault
+
+| 路径 | 内容 | 状态 |
+|------|------|:----:|
+| `01_论文精读/` | 113篇精读+索引 | ✅ |
+| `03_写作素材/` | 摘要/理论框架/关键论点/研究空白 | ✅ |
+| `04_研究方法/` | 方法笔记 | ✅ |
+| `14_工具脚本/` | 进度看板/检索日志/操作规程 | ✅ |
+
+### ⚠️ 已知问题
+
+| # | 问题 | 状态 | 根因 |
+|:-|:-----|:----:|:-----|
+| 1 | 公共管理学精读(33) > PDF(32); 社会学精读(50) > PDF(47) | 📌 | 老龄11篇PDF迁出后，留有余报告；不影响使用 |
+| 2 | 缺19篇精读（老龄1+公共管理6+社会5+交叉7） | ⚠️ **待补** | PDF已入库但未完成精读分析 |
+| 3 | dedup zotero_imported标记已全部同步 | ✅ 已修复 | 全部116篇已标记 |
+
+---
+
+## 七、三层架构
+
+### 配置层（config/）
+
+| 文件 | 用途 | 可自定义？ |
+|------|------|:----------:|
+| `structure.yaml` | 目录名、研究方向名映射 | ✅ 用户可改目录名 |
+| `areas.yaml` | 领域关键词、采集源选择 | ✅ 新增领域加一段 |
+| `sources.yaml` | 采集源定义（URL、限速） | ⚠️ 通常不动 |
+| `metadata.yaml` | 归档后端选择（filesystem/zotero） | ✅ 首次 init 生成 |
+| `template.yaml` | 精读模板结构（给 review/check 校验用） | ✅ 可调整评分维度 |
+
+### 技能层（14_工具脚本/ — CLI 命令）
+
+所有技能遵循统一接口：`python skill.py <action> --input X --output Y`。  
+stdout → JSON（机器可读），stderr → 日志（人类可读），exit 0/非0。
+
+| 技能 | 路径 | 功能 |
+|------|------|------|
+| **pipeline** | `pipeline.py` | 统一仲裁器：`run [--from/--to]`、`status` |
+| **global_config** | `global_config.py` | 统一路径配置，环境变量 `KNOWLEDGE_ROOT` 可覆盖 |
+| **collect/search** | `collect/search.py` | 多源论文搜索 |
+| **collect/download** | `collect/download.py` | 下载 PDF |
+| **metadata/dedup** | `metadata/dedup.py` | 统一去重引擎（SQLite，独立于后端） |
+| **metadata/archive** | `metadata/archive.py` | 归档到选定后端 |
+| **metadata/backends/** | `metadata/backends/` | 插件式归档后端（filesystem/zotero/预留） |
+| **review/watcher** | `review/watcher.py` | 监控新PDF → 自动起草 → 提取 → 日报 |
+| **review/draft** | `review/draft.py` | PDF→精读草稿 |
+| **review/check** | `review/check.py` | 模板合规检查 |
+| **extract/regenerate** | `extract/regenerate.py` | 跨篇沉淀再生 |
+| **extract/keywords** | `extract/keywords.py` | 关键词池生成（只写JSON，不修改源码） |
+| **report/daily** | `report/daily.py` | 日报生成 |
+| **report/weekly** | `report/weekly.py` | 周报生成 |
+| **report/monthly** | `report/monthly.py` | 月报生成 |
+| **report/starter** | `report/starter.py` | 研究启动器 |
+| **report/ars_bridge** | `report/ars_bridge.py` | ARS 桥接（原料包→写作） |
+| **report/format_cn** | `report/create_formatted_docx.py` | 中文学术论文 .docx 格式化（支持5种模板: default/学报/北核/学位论文/csse）|
+| **report/ars_checklist** | `report/ars_pipeline_checklist.py` | ARS 管线启动前环境检查（版本/模型/代理/字数/参考文献）|
+| **tools/sync** | `tools/sync.py` | Obsidian 同步（支持 --with-frontmatter） |
+| **collect/fetch** | `collect/fetch.py` | DOI→PDF 独立工具 |
+| **writing_coach** | `报告/writing_coach.py` | 论文写作支撑（独立工具，不参与管线） |
+| **error_accumulator** | `提取/error_accumulator.py` | 错误自积累（独立工具，不参与管线） |
+
+### Agent 层（docs/agents/）
+
+| Agent | 职责 | 使用的 Skill |
+|-------|------|-------------|
+| **采集Agent** | 搜索→去重→下载→归档 | `collect/search`, `collect/download`, `metadata/dedup`, `metadata/archive` |
+| **精读Agent** | 读PDF→写分析→自查→提交 | `review/draft`, `review/check` |
+| **审稿Agent** | 审核→评分→要求修订 | `review/check` |
+| **综合Agent** | 跨篇对比→研究空白→趋势 | `extract/regenerate`, `report/*` |
+| **运维Agent** | 检查完整性→同步Obsidian | `tools/sync`, `metadata/dedup` |
+
+---
+
+## 八、快速入门（新用户）
+
+```bash
+# 1. 克隆
+git clone <repo>
+cd 公共管理科研
+
+# 2. 初始化（选择归档后端）
+python 14_工具脚本/global_config.py init --backend filesystem
+
+# 3. 配置领域（替换为你的方向和关键词）
+编辑 config/areas.yaml
+
+# 4. 查看状态
+python 14_工具脚本/pipeline.py status
+
+# 5. 开始采集（选做）
+# 启动 Edge CDP → python 14_工具脚本/collect/search.py "关键词" --direction X
+
+# 6. 手动存入PDF（选做）
+# 拖PDF进 01_raw/{方向}/ → review/watcher 自动处理
+
+# 7. 写精读报告
+# 按 analysis_template.md 逐篇写 → review/check 检查
+
+# 8. 一键提取素材
+python 14_工具脚本/extract/regenerate.py --dir .
+
+# 9. 同步 Obsidian
+python 14_工具脚本/tools/sync.py
+```
+
+---
+
+## 九、配置指南
+
+### 路径配置（config/structure.yaml）
+默认中文目录名，用户可自定义：
+```yaml
+directories:
+  01_raw: "01_论文原文"   # 改为 "01_raw_papers"
+  02_reports: "02_精读报告" # 改为 "02_reading_reports"
+```
+
+### 领域配置（config/areas.yaml）
+新增领域只需加一段，不改代码：
+```yaml
+areas:
+  公共管理学:
+    keywords: ["数字政府", "基层治理"]
+    sources: ["ncpssd", "openalex"]
+  计算机科学:      # 新增领域
+    keywords: ["deep learning", "transformer"]
+    sources: ["arxiv", "openalex"]
+```
+
+### 归档后端（config/metadata.yaml）
+- `filesystem`：默认，零依赖，clone 即用
+- `zotero`：可选，需 Zotero 桌面端
+- 首次运行 `python global_config.py init` 交互式选择
+
+## 八、版本历史
+
+| 版本 | 日期 | 主要变更 |
+|:----:|------|---------|
+| **v10.3** | **2026-06-10** | **工作流全面升级**：自检机制每阶段固化；Agent角色映射表；文件名标准化(119篇全量)；采集过滤不相关论文；日报模板升级(评分排序+子目录)；Zotero三数对齐(116=116=116)；精读报告入库路径修复(42处)；采集工具接口升级(arxiv/openalex返回author+year)|
+| v10.2 | 2026-06-10 | 首次ARS全流程成功运行；中文学术格式转换器(5模板)；ARS启动前检查清单；经验教训固化 |
+| **v10** | **2026-06-09** | 全面重构：108篇精读全部v10；去编号去重；4类跨篇沉淀自动提取；工具集中到14_工具脚本；编号体系重排；CLAUDE.md+README.md全量对齐；Obsidian全同步； |
