@@ -88,7 +88,7 @@ class Checker:
                 e(f"README 中找不到 {d} 的行")
                 continue
             tokens = lines[0].split("|")
-            # tokens: ['', '公共管理学', ' 31 ', ' 31 ', ' ✅ ', ' — ', '']
+            # tokens: ['', '公共管理学', ' 31 ', ' 31 ', ' check', ' -', '']
             if len(tokens) >= 5:
                 p_readme = tokens[2].strip()
                 r_readme = tokens[3].strip()
@@ -168,7 +168,7 @@ class Checker:
             print(f"{RED}  有 {ERR} 项检查未通过，请修复后重试。{RESET}")
             print(f"  README.md / CLAUDE.md / 进度看板.md 中的数字需要与实际对齐。\n")
         else:
-            print(f"{GREEN}  全部通过 ✅\n{RESET}")
+            print(f"{GREEN}  All passed (全部通过)\n{RESET}")
         return ERR
 
 def install_hook():
