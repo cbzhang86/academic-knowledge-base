@@ -64,7 +64,7 @@ class Checker:
         if not readme.exists():
             e("README.md 不存在"); return
         text = readme.read_text("utf-8")
-        m = re.search(r"版本[：:]\s*v?([\d.]+)", text)
+        m = re.search(r"版本[：:\-]\s*v?([\d.]+)", text)
         if m:
             v = m.group(1)
             if v == "10.5" or v == "v10.5":
